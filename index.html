@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Stock Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-text">NGT</span><span class="logo-s">s</span>
+            </div>
+            <h1>Laptop Stock Management System</h1>
+            <nav class="main-nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-boxes"></i>
+                    <span>Stock Management</span>
+                </a>
+                <a href="expenses.html" class="nav-link">
+                    <i class="fas fa-receipt"></i>
+                    <span>Expenses</span>
+                </a>
+            </nav>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>Add New Product</h2>
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name:</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Price (₵):</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productQuantity">Quantity:</label>
+                        <input type="number" id="productQuantity" required>
+                    </div>
+                    <button type="submit" class="btn">Add Product</button>
+                </form>
+
+                <h2>Record Sale</h2>
+                <form id="recordSaleForm">
+                    <div class="form-group">
+                        <label for="saleProduct">Product Name:</label>
+                        <input type="text" id="saleProduct" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="saleQuantity">Quantity Sold:</label>
+                        <input type="number" id="saleQuantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method:</label>
+                        <select id="paymentMethod" required>
+                            <option value="">Select payment method</option>
+                            <option value="cash">CASH</option>
+                            <option value="momo">MoMo Payment</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Record Sale</button>
+                </form>
+            </div>
+
+            <div class="stock-section">
+                <h2>Product Stock</h2>
+                <div class="search-box">
+                    <input type="text" id="searchProduct" placeholder="Search product...">
+                    <button onclick="checkStock()" class="btn">Check Stock</button>
+                </div>
+                <div id="stockResult" class="result-box"></div>
+
+                <h2>Product List</h2>
+                <div class="table-container">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Available</th>
+                                <th>Total Sales</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="total-sales">
+                    <h3>Total Sales Amount: ₵<span id="totalSalesAmount">0.00</span></h3>
+                </div>
+                
+                <h2>Sales History</h2>
+                <div class="filter-section">
+                    <div class="form-group">
+                        <label for="filterSalesMonth">Filter by Month:</label>
+                        <input type="month" id="filterSalesMonth">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterSalesProduct">Filter by Product:</label>
+                        <input type="text" id="filterSalesProduct" placeholder="Product name">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterPaymentMethod">Filter by Payment Method:</label>
+                        <select id="filterPaymentMethod">
+                            <option value="">All Payment Methods</option>
+                            <option value="cash">CASH</option>
+                            <option value="momo">MoMo Payment</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="salesHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Amount</th>
+                                <th>Payment Method</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesHistoryTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
