@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses - LMS</title>
+    <title>Bank Transfers - LMS</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -16,82 +16,73 @@
             <ul class="nav-links">
                 <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="stock-management.html"><i class="fas fa-box"></i> Stock Management</a></li>
-                <li class="active"><a href="expenses.html"><i class="fas fa-money-bill-wave"></i> Expenses</a></li>
-                <li><a href="bank-transfers.html"><i class="fas fa-exchange-alt"></i> Bank Transfers</a></li>
+                <li><a href="expenses.html"><i class="fas fa-money-bill-wave"></i> Expenses</a></li>
+                <li class="active"><a href="bank-transfers.html"><i class="fas fa-exchange-alt"></i> Bank Transfers</a></li>
             </ul>
         </nav>
 
         <main class="main-content">
             <header>
-                <h1>Expenses</h1>
+                <h1>Bank Transfers</h1>
                 <div class="user-info">
                     <span>Welcome, Admin</span>
                 </div>
             </header>
 
-            <div class="expense-actions">
-                <button class="action-btn" onclick="openModal('addExpenseModal')">
-                    <i class="fas fa-plus"></i> Add New Expense
+            <div class="transfer-actions">
+                <button class="action-btn" onclick="openModal('addTransferModal')">
+                    <i class="fas fa-plus"></i> Add New Transfer
                 </button>
             </div>
 
-            <div class="expense-summary">
-                <h2>Expense Summary</h2>
+            <div class="transfer-summary">
+                <h2>Transfer Summary</h2>
                 <div class="summary-cards">
                     <div class="card">
-                        <h3>Total Expenses</h3>
-                        <p id="totalExpenses">$0.00</p>
+                        <h3>Total Transfers</h3>
+                        <p id="totalTransfers">$0.00</p>
                     </div>
                     <div class="card">
                         <h3>This Month</h3>
-                        <p id="monthlyExpenses">$0.00</p>
+                        <p id="monthlyTransfers">$0.00</p>
                     </div>
                 </div>
             </div>
 
-            <div class="expense-history">
-                <h2>Expense History</h2>
+            <div class="transfer-history">
+                <h2>Transfer History</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Category</th>
                                 <th>Description</th>
                                 <th>Amount</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="expenseTableBody">
-                            <!-- Expenses will be populated by JavaScript -->
+                        <tbody id="transferTableBody">
+                            <!-- Transfers will be populated by JavaScript -->
                         </tbody>
                     </table>
                 </div>
-                <button class="view-more-btn" id="viewMoreExpenses" style="display: none;">
-                    View More Expenses
+                <button class="view-more-btn" id="viewMoreTransfers" style="display: none;">
+                    View More Transfers
                 </button>
             </div>
         </main>
     </div>
 
-    <!-- Add Expense Modal -->
-    <div id="addExpenseModal" class="modal">
+    <!-- Add Transfer Modal -->
+    <div id="addTransferModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('addExpenseModal')">&times;</span>
-            <h2>Add New Expense</h2>
-            <form id="addExpenseForm">
-                <select id="expenseCategory" required>
-                    <option value="">Select Category</option>
-                    <option value="utilities">Utilities</option>
-                    <option value="rent">Rent</option>
-                    <option value="salaries">Salaries</option>
-                    <option value="supplies">Supplies</option>
-                    <option value="maintenance">Maintenance</option>
-                    <option value="other">Other</option>
-                </select>
-                <input type="text" id="expenseDescription" placeholder="Description" required>
-                <input type="number" id="expenseAmount" placeholder="Amount" step="0.01" required>
-                <button type="submit">Add Expense</button>
+            <span class="close" onclick="closeModal('addTransferModal')">&times;</span>
+            <h2>Add New Transfer</h2>
+            <form id="addTransferForm">
+                <input type="date" id="transferDate" required>
+                <input type="text" id="transferDescription" placeholder="Description" required>
+                <input type="number" id="transferAmount" placeholder="Amount" step="0.01" required>
+                <button type="submit">Add Transfer</button>
             </form>
         </div>
     </div>
@@ -101,7 +92,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('deleteModal')">&times;</span>
             <h2>Confirm Delete</h2>
-            <p>Are you sure you want to delete this expense?</p>
+            <p>Are you sure you want to delete this transfer?</p>
             <div class="modal-actions">
                 <button onclick="confirmDelete()" class="delete-btn">Delete</button>
                 <button onclick="closeModal('deleteModal')" class="cancel-btn">Cancel</button>
@@ -109,6 +100,6 @@
         </div>
     </div>
 
-    <script src="js/expenses.js"></script>
+    <script src="js/bank-transfers.js"></script>
 </body>
 </html> 

@@ -3,141 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptop Stock Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Laptop Management System</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <header>
+        <nav class="sidebar">
             <div class="logo">
-                <span class="logo-text">NGT</span><span class="logo-s">s</span>
+                <h2>LMS</h2>
             </div>
-            <h1>Laptop Stock Management System</h1>
-            <nav class="main-nav">
-                <a href="dashboard.html" class="nav-link">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="index.html" class="nav-link active">
-                    <i class="fas fa-boxes"></i>
-                    <span>Stock Management</span>
-                </a>
-                <a href="expenses.html" class="nav-link">
-                    <i class="fas fa-receipt"></i>
-                    <span>Expenses</span>
-                </a>
-            </nav>
-        </header>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="stock-management.html">
+                        <i class="fas fa-box"></i>
+                        <span>Stock Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="expenses.html">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Expenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="bank-transfers.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Bank Transfers</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-        <div class="main-content">
-            <div class="form-section">
-                <h2>Add New Product</h2>
-                <form id="addProductForm">
-                    <div class="form-group">
-                        <label for="productName">Product Name:</label>
-                        <input type="text" id="productName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrice">Price (₵):</label>
-                        <input type="number" id="productPrice" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="productQuantity">Quantity:</label>
-                        <input type="number" id="productQuantity" required>
-                    </div>
-                    <button type="submit" class="btn">Add Product</button>
-                </form>
+        <main class="main-content">
+            <header>
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Welcome, Admin</span>
+                </div>
+            </header>
 
-                <h2>Record Sale</h2>
-                <form id="recordSaleForm">
-                    <div class="form-group">
-                        <label for="saleProduct">Product Name:</label>
-                        <input type="text" id="saleProduct" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="saleQuantity">Quantity Sold:</label>
-                        <input type="number" id="saleQuantity" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="paymentMethod">Payment Method:</label>
-                        <select id="paymentMethod" required>
-                            <option value="">Select payment method</option>
-                            <option value="cash">CASH</option>
-                            <option value="momo">MoMo Payment</option>
-                            <option value="bank">Bank Transfer</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">Record Sale</button>
-                </form>
+            <div class="quick-actions">
+                <button class="action-btn" onclick="openModal('addProductModal')">
+                    <i class="fas fa-plus"></i>
+                    <span>Add New Product</span>
+                </button>
+                <button class="action-btn" onclick="openModal('recordSaleModal')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Record Sale</span>
+                </button>
+                <button class="action-btn" onclick="openModal('addExpenseModal')">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Add Expense</span>
+                </button>
             </div>
 
-            <div class="stock-section">
-                <h2>Product Stock</h2>
-                <div class="search-box">
-                    <input type="text" id="searchProduct" placeholder="Search product...">
-                    <button onclick="checkStock()" class="btn">Check Stock</button>
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>Total Products</h3>
+                    <p id="totalProducts">0</p>
                 </div>
-                <div id="stockResult" class="result-box"></div>
-
-                <h2>Product List</h2>
-                <div class="table-container">
-                    <table id="productTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Available</th>
-                                <th>Total Sales</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productTableBody">
-                        </tbody>
-                    </table>
+                <div class="card">
+                    <h3>Total Sales</h3>
+                    <p id="totalSales">$0.00</p>
                 </div>
-                <div class="total-sales">
-                    <h3>Total Sales Amount: ₵<span id="totalSalesAmount">0.00</span></h3>
+                <div class="card">
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpenses">$0.00</p>
                 </div>
-                
-                <h2>Sales History</h2>
-                <div class="filter-section">
-                    <div class="form-group">
-                        <label for="filterSalesMonth">Filter by Month:</label>
-                        <input type="month" id="filterSalesMonth">
-                    </div>
-                    <div class="form-group">
-                        <label for="filterSalesProduct">Filter by Product:</label>
-                        <input type="text" id="filterSalesProduct" placeholder="Product name">
-                    </div>
-                    <div class="form-group">
-                        <label for="filterPaymentMethod">Filter by Payment Method:</label>
-                        <select id="filterPaymentMethod">
-                            <option value="">All Payment Methods</option>
-                            <option value="cash">CASH</option>
-                            <option value="momo">MoMo Payment</option>
-                            <option value="bank">Bank Transfer</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <table id="salesHistoryTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Unit Price</th>
-                                <th>Total Amount</th>
-                                <th>Payment Method</th>
-                            </tr>
-                        </thead>
-                        <tbody id="salesHistoryTableBody">
-                        </tbody>
-                    </table>
+                <div class="card">
+                    <h3>Total Transfers</h3>
+                    <p id="totalTransfers">$0.00</p>
                 </div>
             </div>
+
+            <div class="payment-summary">
+                <h2>Payment Method Summary</h2>
+                <div class="payment-cards">
+                    <div class="payment-card">
+                        <i class="fas fa-money-bill"></i>
+                        <h3>Cash</h3>
+                        <p id="cashTotal">$0.00</p>
+                    </div>
+                    <div class="payment-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Money</h3>
+                        <p id="momoTotal">$0.00</p>
+                    </div>
+                    <div class="payment-card">
+                        <i class="fas fa-university"></i>
+                        <h3>Bank Transfer</h3>
+                        <p id="bankTotal">$0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-activities">
+                <h2>Recent Activities</h2>
+                <div class="activities-list" id="activitiesList">
+                    <!-- Activities will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" placeholder="Enter product name" required>
+                </div>
+                <div class="form-group">
+                    <label for="productQuantity">Quantity</label>
+                    <input type="number" id="productQuantity" placeholder="Enter quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price</label>
+                    <input type="number" id="productPrice" placeholder="Enter price" step="0.01" required>
+                </div>
+                <button type="submit">Add Product</button>
+            </form>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div id="recordSaleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recordSaleModal')">&times;</span>
+            <h2>Record Sale</h2>
+            <form id="recordSaleForm">
+                <div class="form-group">
+                    <label for="saleProductSelect">Product</label>
+                    <select id="saleProductSelect" required>
+                        <option value="">Select Product</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="saleQuantity">Quantity</label>
+                    <input type="number" id="saleQuantity" placeholder="Enter quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="salePaymentMethod">Payment Method</label>
+                    <select id="salePaymentMethod" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="cash">Cash</option>
+                        <option value="momo">Mobile Money</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                </div>
+                <button type="submit">Record Sale</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addExpenseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addExpenseModal')">&times;</span>
+            <h2>Add New Expense</h2>
+            <form id="addExpenseForm">
+                <div class="form-group">
+                    <label for="expenseCategory">Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="rent">Rent</option>
+                        <option value="salaries">Salaries</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expenseDescription">Description</label>
+                    <input type="text" id="expenseDescription" placeholder="Enter description" required>
+                </div>
+                <div class="form-group">
+                    <label for="expenseAmount">Amount</label>
+                    <input type="number" id="expenseAmount" placeholder="Enter amount" step="0.01" required>
+                </div>
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html> 
